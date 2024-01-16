@@ -1,68 +1,86 @@
 <!DOCTYPE html>
 
-<html>
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title></title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="task1.css">
-    </head>
-    <body>
-        <div class="container">
-            <h1>Registration</h1>
-            <form action="">
+<html lang="en-US">
 
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Task 1</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="task1.css">
+    <script src="task1.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Registration</h1>
+        <form name="myForm" id="myForm">
+
+            <div>
                 <div>
-                <label for="first_name">First Name</label> <br>
-                <input type="text" name="first_name" class="inpt" id="first_name"><br></div>
-                
-                <div> <label for="last_name">Last Name</label><br>
-                <input type="text" name="last_name" class="inpt" id="last_name"><br></div>
+                <label for="first_name">First Name</label> </div>
+                <input type="text" name="first_name" class="inpt" id="first_name" autocomplete="name"><br>
+            </div>
 
-                <div> <label for="email">Email</label><br>
-                <input type="email" name="email" class="inpt" id="email"><br></div>
+            <div> 
+                <div><label for="last_name">Last Name</label> </div>
+                <input type="text" name="last_name" class="inpt" id="last_name"><br>
+            </div>
 
-                <div> <label for="phone">Phone Number</label><br>
-                <input type="tel" name="phone" id="phone" class="inpt"><br></div>
+            <div> 
+                 <div><label for="email">Email</label> </div>
+                <input type="email" name="email" class="inpt" id="email" autocomplete="email"><br>
+            </div>
 
-                <div class="gh"><label for="gen">Gender</label><br>
-                <input type="radio" name="gender" value="Male" id="gen" >
-                <label for="gender">Male</label>
+            <div>  <div><label for="phone">Phone Number</label> </div>
+                <input type="tel" name="phone" id="phone" class="inpt" autocomplete="tel"><br>
+            </div>
 
-                <input type="radio" name="gender" value="Female" id="gen" >
-                <label for="gender">Female</label>
+            <div class="gh"> <div>Gender </div>
 
-                <input type="radio" name="gender" value="other" id="gen" >
-                <label for="gender">Other</label>
-                <br> </div>
+                <input type="radio" name="gen" value="Male" id="Male" > 
+                <label for="Male">Male</label>
 
-                <div class="gh"><label for="hobby">Hobby</label><br>
-                <input type="checkbox" name="hobby" value="Cricket" id="hobby" >
-                <label for="hobby">Cricket</label>
+                <input type="radio" name="gen" value="Female" id="Female"> 
+                <label for="Female">Female</label>
 
-                <input type="checkbox" name="hobby" value="Traveling" id="hobby" >
-                <label for="hobby">Traveling</label>
+                <input type="radio" name="gen" value="other" id="Other" > 
+                <label for="Other">Other</label>
+    
+                <br>
+            </div>
 
-                <input type="checkbox" name="hobby" value="Movies" id="hobby" >
-                <label for="hobby">Movies</label>
+            <div class="gh"> <div>Hobby</div>
+                <input type="checkbox" name="hobby" value="Cricket" id="Cricket">
+                <label for="Cricket">Cricket</label>
+                 
+                <input type="checkbox" name="hobby" value="Traveling" id="Traveling">
+                <label for="Traveling">Traveling</label>
 
-                <input type="checkbox" name="hobby" value="Reading" id="hobby" >
-                <label for="hobby">Reading</label><br>
-                </div>
+                <input type="checkbox" name="hobby" value="Movies" id="Movies">
+                <label for="Movies">Movies</label>
 
-                <div> <label>Technology</label><br>
-                <select name="tech" id="" multiple>
+                <input type="checkbox" name="hobby" value="Reading" id="Reading">
+                <label for="Reading">Reading</label>
+            </div>
+
+            <div> <div> <label for="tech">Technology</label><br> </div>
+                <select name="tech" id="tech" multiple>
                     <option value="Python">Python</option>
                     <option value="PHP">PHP</option>
                     <option value="JavaScript">JavaScript</option>
                     <option value="CSS">CSS</option>
                     <option value="HTML">HTML</option>
                 </select>
-                </div>
-            </form>
-        </div>
-        <script src="" async defer></script>
-    </body>
+            </div>
+            <div>
+                <button type="button" id="addEntry">Submit</button>
+                <a href="list.html">View List</a>
+            </div>
+        </form>
+    </div>
+    
+</body>
+
 </html>

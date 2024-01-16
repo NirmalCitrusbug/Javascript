@@ -10,7 +10,7 @@ body{
 }
 
 .container div{
-    padding: 10px 0px;
+    padding: 20px 0px;
 }
 
 .container label{
@@ -19,17 +19,16 @@ body{
 
 .inpt {
     width: 100%;
-    height: 30px;
+    height: 40px;
+    border-radius: 10px;
 }
 
-label{
-    width: 100%;
-}
 
 select {
     font-size: 18px;
     height: 100px;
     width: 100%;
+    border-radius: 10px;
 }
 
 option {
