@@ -1,0 +1,9 @@
+.highlighted {
+    color: red;
+    font-weight: bold;
+}
+
+button {
+    padding: 15px;
+    margin: 10px;
+}

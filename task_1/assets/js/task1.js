@@ -53,7 +53,7 @@ document.addEventListener('DOMContentLoaded', function () {
     function validateForm() {
         var x = document.forms["myForm"]["first_name"].value;
         if (x == "") {
-            alert("First name must be filled out");
+            
             return false;
         }
 
@@ -127,4 +127,63 @@ document.addEventListener('DOMContentLoaded', function () {
         entries.push(entry);
         localStorage.setItem('entries', JSON.stringify(entries));
     }
+
+
+    
 });
+
+const jsonStore = localStorage.getItem('entries');
+
+    const retrieved = JSON.parse(jsonStore);
+
+    // console.log(retrieved[0]);
+    var entry = document.getElementById('entry');
+
+    for (let i = 0; i < retrieved.length; i++) {
+        entry.innerHTML += `<tr id> 
+                                <td><input type='checkbox' id='e-${i-1}' class='entryCheck'> </td>
+    
+                                <td>${retrieved[i].fname} </td> 
+                                <td>${retrieved[i].lname} </td> 
+                                <td>${retrieved[i].email} </td>
+                                <td>${retrieved[i].phone} </td>
+                                <td>${retrieved[i].gender} </td>
+                                <td>${retrieved[i].hobby} </td>
+                                <td>${retrieved[i].tech} </td>
+                                <td> <button class"view-list"> View Details </button></td>
+                            </tr>`
+    } 
+
+    const delButton = document.getElementById('deleteEntry');
+
+
+    function deleteEntry(){
+        var ent = entry.getElementsByClassName('entryCheck');
+        var lst = [];
+        for (let i = ent.length - 1; i >= 0; i--) {
+            if (ent[i].checked) {
+            lst.push(i);
+            }
+        }
+
+        for (let i = 0; i < lst.length; i++) {
+            retrieved.splice(lst[i],1);
+            entry.deleteRow(lst[i]);
+        }
+
+        localStorage.setItem('entries', JSON.stringify(retrieved));
+
+    }
+
+    const selectButton = document.getElementById('selectEntry');
+
+    selectButton.addEventListener('click', function(){
+        selectEntry();
+        delButton.style.display = 'flex';
+    });
+
+    delButton.addEventListener('click', function(){
+        deleteEntry();
+    })
+
+
