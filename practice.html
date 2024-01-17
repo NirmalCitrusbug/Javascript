@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Form Validation</title>
+  <style>
+    .error {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+
+  <form id="myForm">
+    <label for="username">Username:</label>
+    <input type="text" id="username" onchange="validateUsername()">
+    <span id="usernameError" class="error"></span>
+
+    <br>
+
+    <label for="email">Email:</label>
+    <input type="email" id="email" onchange="validateEmail()">
+    <span id="emailError" class="error"></span>
+
+    <br>
+
+    <input type="submit" value="Submit">
+  </form>
+
+  <script>
+    function validateUsername() {
+      var usernameInput = document.getElementById('username');
+      var usernameError = document.getElementById('usernameError');
+
+      // Basic validation, you can customize it according to your requirements
+      if (usernameInput.value.length < 3) {
+        usernameError.innerHTML = 'Username must be at least 3 characters long';
+      } else {
+        usernameError.innerHTML = '';
+      }
+    }
+
+    function validateEmail() {
+      var emailInput = document.getElementById('email');
+      var emailError = document.getElementById('emailError');
+
+      // Basic email validation, you can use a regular expression for more complex validation
+      if (!emailInput.value.includes('@')) {
+        emailError.innerHTML = 'Invalid email address';
+      } else {
+        emailError.innerHTML = '';
+      }
+    }
+
+    // You can add more validation functions for other form fields if needed
+
+    // You may also want to add a form-level validation function to check all fields before submission
+
+    document.getElementById('myForm').addEventListener('submit', function(event) {
+      // Example form-level validation before submission
+      var isValid = true;
+      if (document.getElementById('username').value.length < 3) {
+        document.getElementById('usernameError').innerHTML = 'Username must be at least 3 characters long';
+        isValid = false;
+      }
+
+      if (!document.getElementById('email').value.includes('@')) {
+        document.getElementById('emailError').innerHTML = 'Invalid email address';
+        isValid = false;
+      }
+
+      if (!isValid) {
+        event.preventDefault(); // Prevent the form from submitting if there are validation errors
+      }
+    });
+  </script>
+
+</body>
+</html>
