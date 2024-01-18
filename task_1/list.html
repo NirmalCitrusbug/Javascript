@@ -1,36 +1,126 @@
 <!DOCTYPE html>
+<html lang="en">
 
-<html>
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>View list</title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="/task_1/assets/css/task1.css">
-    </head>
-    <style>
-        
-    </style>
-    <body>
-        <table id="entry">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>Document</title>
+    <link rel="stylesheet" href="/task_1/assets/css/task1.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+</head>
+
+<body>
+    <div id="viewList">
+        <h1>View List</h1>
+
+        <!-- table to view list -->
+        <table id="entry" class="table table-striped table-hover">
             <thead>
                 <th></th>
-                <th>First name</th>
-                <th>Last name</th>
+                <th>Name</th>
                 <th>Email</th>
                 <th>Phone</th>
+                <th>Zipcode</th>
+                <th>DOB</th>
                 <th>Gender</th>
                 <th>Hobby</th>
                 <th>Technology</th>
                 <th>View</th>
             </thead>
-            
         </table>
 
-        <button><a href="task1.html">Add entry</a></button>
-        <button type="button" id="selectEntry">select</button>
-        <button type="button" id="deleteEntry">delete</button>
-        <script src="/task_1/assets/js/task1.js"></script>
-    </body>
+        <!-- button to add entry -->
+        <button class="btn btn-outline-primary"><a href="task1.html">Add entry</a></button>
+
+        <!-- button to delete entry -->
+        <button type="button" id="deleteEntry" class="btn btn-outline-primary">delete</button>
+
+        <!-- button to edit details -->
+        <button type="button" id="editdetails" class="btn btn-outline-primary">Edit details</button>
+
+    </div>
+
+    <!-- division to update form -->
+    <!-- <div id="updateForm">
+        <div id="formNumber"></div>
+        <div class="mb-3">
+            <label for="updateName" class="form-label">Name:</label> <br>
+            <input type="text" id="updateName" name="updateName" class="form-control"> <br>
+            <span id="errorName"></span><br>
+
+        </div>
+        <div class="mb-3">
+            <label for="updateEmail" class="form-label">Email:</label> <br>
+            <input type="email" id="updateEmail" name="updateEmail" class="form-control"> <br>
+            <span id="errorEmail"></span><br>
+        </div>
+        <div class="mb-3">
+            <label for="phone" class="form-label">Phone:</label> <br>
+            <input type="tel" id="phone" name="phone" class="form-control"> <br>
+            <span id="errorPhone"></span><br>
+        </div>
+        <div class="mb-3">
+            <label for="updateZipcode" class="form-label">Zipcode:</label> <br>
+            <input type="text" id="updateZipcode" name="updateZipcode" class="form-control"> <br>
+            <span id="errorZip"></span><br>
+        </div>
+        <div class="mb-3">
+            <label for="updatedob" class="form-label">Date of Birth:</label> <br>
+            <input type="date" id="updatedob" name="updatedob" class="form-control">
+            <br>
+            <span id="errorDob"></span><br>
+        </div>
+        <div class="mb-3">
+            <label for="updateGender" class="form-label">Gender:</label> <br>
+            <input type="radio" id="male" name="updateGender" value="male" class="form-check-input">
+            <label for="male">Male</label>
+            <input type="radio" id="female" name="updateGender" value="female" class="form-check-input">
+            <label for="female">Female</label>
+            <input type="radio" id="other" name="updateGender" value="other" class="form-check-input">
+            <label for="female">Other</label> <br>
+            <span id="errorGender"></span><br>
+        </div>
+        <div class="mb-3">
+            <label for="updateHobby" class="form-label">Hobby:</label> <br>
+            <input type="checkbox" id="reading" name="updateHobby" value="reading" class="form-check-input">
+            <label for="reading">Reading</label>
+            <input type="checkbox" id="sports" name="updateHobby" value="sports" class="form-check-input">
+            <label for="sports">Sports</label>
+            <input type="checkbox" id="music" name="updateHobby" value="music" class="form-check-input">
+            <label for="music">Music</label>
+            <input type="checkbox" id="traveling" name="updateHobby" value="traveling" class="form-check-input">
+            <label for="traveling">Traveling</label> <br>
+            <span id="errorHobby"></span><br>
+        </div>
+        <div class="mb-3">
+            <label for="updateTechnology" class="form-label">Technology:</label> <br>
+            <select id="updateTechnology" name="updateTechnology" class="form-select" multiple
+                aria-label="Multiple select example">
+                <option value="html">HTML</option>
+                <option value="css">CSS</option>
+                <option value="javascript">JavaScript</option>
+                <option value="python">Python</option>
+                <option value="java">Java</option>
+            </select> <br>
+            <span id="errorTechnology"></span><br>
+        </div>
+    </div> -->
+
+    <!-- division to create slider -->
+    <div id="slider" class="sliderDesign">
+        <div id="arrow-left" class="arrow" onclick="changeSlide(-1)"></div>
+        <div id="arrow-right" class="arrow" onclick="changeSlide(1)"></div>
+        <div>
+            <button type="button" id="completeUpdate" onclick="completeUpdate()"><a href="/task_1/list.html">Done</a></button>
+        </div>
+    </div>
+
+    <div id="displaySingleForm">
+        
+    </div>
+    <script src="/task_1/assets/js/task_1.js"></script>
+</body>
+
 </html>

@@ -3,78 +3,101 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Form Validation</title>
+  <!-- <link rel="stylesheet" href="styles.css"> -->
+  <title>Simple Slideshow</title>
   <style>
-    .error {
-      color: red;
-    }
+    body {
+  font-family: Arial, sans-serif;
+}
+
+.slideshow-container {
+  max-width: 800px;
+  position: relative;
+  margin: auto;
+}
+
+.slide {
+  display: none;
+}
+
+img {
+  width: 100%;
+  height: auto;
+}
+
+.prev, .next {
+  position: absolute;
+  top: 50%;
+  width: auto;
+  padding: 16px;
+  margin-top: -22px;
+  font-size: 20px;
+  cursor: pointer;
+  color: white;
+  background-color: black;
+  border: none;
+  text-align: center;
+  text-decoration: none;
+}
+
+.prev {
+  left: 0;
+}
+
+.next {
+  right: 0;
+}
+
   </style>
 </head>
 <body>
 
-  <form id="myForm">
-    <label for="username">Username:</label>
-    <input type="text" id="username" onchange="validateUsername()">
-    <span id="usernameError" class="error"></span>
+<div class="slideshow-container">
+  <div class="slide fade">
+    <img src="image1.jpg" alt="Slide 1">
+  </div>
+  <div class="slide fade">
+    <img src="image2.jpg" alt="Slide 2">
+  </div>
+  <!-- Add more slides as needed -->
 
-    <br>
+  <a class="prev" onclick="changeSlide(-1)">&#10094;</a>
+  <a class="next" onclick="changeSlide(1)">&#10095;</a>
+</div>
 
-    <label for="email">Email:</label>
-    <input type="email" id="email" onchange="validateEmail()">
-    <span id="emailError" class="error"></span>
+<script>
+  let slideIndex = 0;
 
-    <br>
+function showSlides() {
+  let slides = document.getElementsByClassName("slide");
+  
+  // Hide all slides
+  for (let i = 0; i < slides.length; i++) {
+    slides[i].style.display = "none";
+  }
 
-    <input type="submit" value="Submit">
-  </form>
+  // Display the current slide
+  slides[slideIndex].style.display = "block";
+}
 
-  <script>
-    function validateUsername() {
-      var usernameInput = document.getElementById('username');
-      var usernameError = document.getElementById('usernameError');
+function changeSlide(n) {
+  slideIndex += n;
 
-      // Basic validation, you can customize it according to your requirements
-      if (usernameInput.value.length < 3) {
-        usernameError.innerHTML = 'Username must be at least 3 characters long';
-      } else {
-        usernameError.innerHTML = '';
-      }
-    }
+  let slides = document.getElementsByClassName("slide");
 
-    function validateEmail() {
-      var emailInput = document.getElementById('email');
-      var emailError = document.getElementById('emailError');
+  // Wrap around when reaching the beginning or end of slides
+  if (slideIndex >= slides.length) {
+    slideIndex = 0;
+  } else if (slideIndex < 0) {
+    slideIndex = slides.length - 1;
+  }
 
-      // Basic email validation, you can use a regular expression for more complex validation
-      if (!emailInput.value.includes('@')) {
-        emailError.innerHTML = 'Invalid email address';
-      } else {
-        emailError.innerHTML = '';
-      }
-    }
+  showSlides();
+}
 
-    // You can add more validation functions for other form fields if needed
+// Initial slide display
+showSlides();
 
-    // You may also want to add a form-level validation function to check all fields before submission
-
-    document.getElementById('myForm').addEventListener('submit', function(event) {
-      // Example form-level validation before submission
-      var isValid = true;
-      if (document.getElementById('username').value.length < 3) {
-        document.getElementById('usernameError').innerHTML = 'Username must be at least 3 characters long';
-        isValid = false;
-      }
-
-      if (!document.getElementById('email').value.includes('@')) {
-        document.getElementById('emailError').innerHTML = 'Invalid email address';
-        isValid = false;
-      }
-
-      if (!isValid) {
-        event.preventDefault(); // Prevent the form from submitting if there are validation errors
-      }
-    });
-  </script>
-
+</script>
 </body>
 </html>

@@ -1,60 +1,91 @@
 <!DOCTYPE html>
 
-<html lang="en-US">
+<html>
 
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Task 1</title>
+    <title></title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="/task_1/assets/css/task1.css">
-    <script src="/task_1/assets/js/task_1.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 </head>
 
 <body>
-
     <div class="container">
-        <form action="" method="get" id="regForm">
-            <!-- First name field -->
-            <label for="name">First Name</label>
-            <br>
-            <input type="text" name="name" id="name" onchange="validation(1)">
-            <br>
-            <span id="errorName"></span>
-            <br>
+        <h1>Registration</h1>
+        <form onsubmit="return validateForm()" id="regForm">
 
-            <label for="email">Email</label>
-            <br>
-            <input type="email" name="email" id="email" onchange="validation(2)">
-            <br>
-            <span id="errorEmail"></span>
-            <br>
+            <div class="mb-3">
+                <label for="name" class="form-label">Name:</label> <br>
+                <input type="text" id="name" name="name" class="form-control"> <br>
+                <span id="errorName"></span><br>
 
-            <label for="phone">Phone Number</label>
-            <br>
-            <input type="tel" name="phone" id="phone" onchange="validation(3)">
-            <br>
-            <span id="errorPhone"></span>
-            <br>
-
-            <label for="zipcode">Zipcode</label>
-            <br>
-            <input type="text" name="zipcode" id="zipcode" pattern="[0-9]" maxlength="6" onchange="validation(1)">
-            <br>
-            <span id="errorFname"></span>
-            <br>
-
-            <label for="dob">Date of Birth</label>
-            <br>
-            <input type="date" name="dob" id="dob"  onchange="validation(1)">
-            <br>
-            <span id="errorFname"></span>
-            <br>
-            <input type="button" value="Submit" onclick="submitForm()">
+            </div>
+            <div class="mb-3">
+                <label for="email" class="form-label">Email:</label> <br>
+                <input type="email" id="email" name="email" class="form-control"> <br>
+                <span id="errorEmail"></span><br>
+            </div>
+            <div class="mb-3">
+                <label for="phone" class="form-label">Phone:</label> <br>
+                <input type="tel" id="phone" name="phone" class="form-control"> <br>
+                <span id="errorPhone"></span><br>
+            </div>
+            <div class="mb-3">
+                <label for="zipcode" class="form-label">Zipcode:</label> <br>
+                <input type="text" id="zipcode" name="zipcode" class="form-control"> <br>
+                <span id="errorZip"></span><br>
+            </div>
+            <div class="mb-3">
+                <label for="dob" class="form-label">Date of Birth:</label> <br>
+                <input type="date" id="dob" name="dob" class="form-control">
+                <br>
+                <span id="errorDob"></span><br>
+            </div>
+            <div class="mb-3">
+                <label for="gender" class="form-label">Gender:</label> <br>
+                <input type="radio" id="male" name="gender" value="male" class="form-check-input">
+                <label for="male">Male</label>
+                <input type="radio" id="female" name="gender" value="female" class="form-check-input">
+                <label for="female">Female</label>
+                <input type="radio" id="other" name="gender" value="other" class="form-check-input">
+                <label for="female">Other</label> <br>
+                <span id="errorGender"></span><br>
+            </div>
+            <div class="mb-3">
+                <label for="hobby" class="form-label">Hobby:</label> <br>
+                <input type="checkbox" id="reading" name="hobby" value="reading" class="form-check-input">
+                <label for="reading">Reading</label>
+                <input type="checkbox" id="sports" name="hobby" value="sports" class="form-check-input">
+                <label for="sports">Sports</label>
+                <input type="checkbox" id="music" name="hobby" value="music" class="form-check-input">
+                <label for="music">Music</label>
+                <input type="checkbox" id="traveling" name="hobby" value="traveling" class="form-check-input">
+                <label for="traveling">Traveling</label> <br>
+                <span id="errorHobby"></span><br>
+            </div>
+            <div class="mb-3">
+                <label for="technology" class="form-label">Technology:</label> <br>
+                <select id="technology" name="technology" class="form-select" multiple
+                    aria-label="Multiple select example">
+                    <option value="html">HTML</option>
+                    <option value="css">CSS</option>
+                    <option value="javascript">JavaScript</option>
+                    <option value="python">Python</option>
+                    <option value="java">Java</option>
+                </select> <br>
+                <span id="errorTechnology"></span><br>
+            </div>
+            <div>
+                <input type="button" value="Submit" class="btn btn-primary btn-lg" id="submitForm"
+                    onclick="storeFormDetails()">
         </form>
+
     </div>
-        
+    <script src="/task_1/assets/js/task_1.js"></script>
 </body>
 
 </html>
