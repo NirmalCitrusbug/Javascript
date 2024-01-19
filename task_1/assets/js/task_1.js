@@ -200,12 +200,12 @@ function displayFormDetails() {
     }
 }
 
-function displaysingleform(i){
+function displaysingleform(i) {
     const jsonStore = localStorage.getItem('formDetails');
     const retrieved = JSON.parse(jsonStore);
     var entry = document.getElementById('entry');
 
-        entry.innerHTML = `<li>
+    entry.innerHTML = `<li>
                                 <ul>Name: ${retrieved[i].name} </ul>
                                 <ul>Email: ${retrieved[i].email} </ul>
                                 <ul>Phone: ${retrieved[i].phone} </ul>
@@ -214,7 +214,15 @@ function displaysingleform(i){
                                 <ul>Gender: ${retrieved[i].gender} </ul>
                                 <ul>Hobby: ${retrieved[i].hobbySelected} </ul>
                                 <ul>Technology: ${retrieved[i].tech} </ul>
-                            </li>`;
+                            </li>
+                            <br>
+                            <button type='button' onclick = 'location.reload()' class='btn btn-outline-primary'><a href='list.html'>Back</a></button>`;
+    document.getElementById('addEntry').style.display = 'none';
+    document.getElementById('deleteEntry').style.display = 'none';
+    document.getElementById('editdetails').style.display = 'none';
+
+
+
 }
 
 displayFormDetails();
@@ -245,7 +253,7 @@ function deleteFormDetails() {
 
 }
 
-deleteButton.addEventListener('click', function(){
+deleteButton.addEventListener('click', function () {
     deleteFormDetails();
 })
 
@@ -256,60 +264,51 @@ deleteButton.addEventListener('click', function(){
 var slideIndex = 0;
 
 function showSlides() {
-  let slides = document.getElementsByClassName("slide");
-  
-  // Hide all slides
-  for (let i = 0; i < slides.length; i++) {
-    slides[i].style.display = "none";
-  }
+    let slides = document.getElementsByClassName("slide");
 
-  // Display the current slide
-  slides[slideIndex].style.display = "block";
+    // Hide all slides
+    for (let i = 0; i < slides.length; i++) {
+        slides[i].style.display = "none";
+    }
+
+    // Display the current slide
+    slides[slideIndex].style.display = "block";
 }
 
 function changeSlide(n) {
-  slideIndex += n;
+    slideIndex += n;
 
-  let slides = document.getElementsByClassName("slide");
+    let slides = document.getElementsByClassName("slide");
 
-  // Wrap around when reaching the beginning or end of slides
-  if (slideIndex >= slides.length) {
-    slideIndex = 0;
-  } else if (slideIndex < 0) {
-    slideIndex = slides.length - 1;
-  }
+    // Wrap around when reaching the beginning or end of slides
+    if (slideIndex >= slides.length) {
+        slideIndex = 0;
+    } else if (slideIndex < 0) {
+        slideIndex = slides.length - 1;
+    }
 
-  showSlides();
+    showSlides();
 }
 
 let updateFormVar = document.getElementById('updateForm');
 
-function addForm(){
-    
+function addForm() {
+
     let slideVar = document.getElementById('slider');
     const jsonStore = localStorage.getItem('formDetails');
     let retrieved = JSON.parse(jsonStore);
 
     var ent = document.getElementsByClassName('entryCheck');
     var lst = [];
-    for (let i = ent.length - 1; i >= 0; i--) {
-        if (ent[i].checked) {
-            lst.push(i);
+    for (let entryIndex = ent.length - 1; entryIndex >= 0; entryIndex--) {
+        if (ent[entryIndex].checked) {
+            lst.push(entryIndex);
         }
     }
 
     for (let i = 0; i < lst.length; i++) {
-        const name = retrieved[lst[i]].name;
-        const email = retrieved[lst[i]].email;
-        const phone = retrieved[lst[i]].phone;
-        const zipcode = retrieved[lst[i]].zipcode;
-        const dob = retrieved[lst[i]].dob;
-        const gender = retrieved[lst[i]].gender;
-        const hobbySelected = retrieved[lst[i]].hobbySelected;
-        const tech = retrieved[lst[i]].tech;
 
-        const count = lst[i];
-       slideVar.innerHTML += `<div id="updateForm" class='slide'>
+        slideVar.innerHTML += `<div id="updateForm" class='slide'>
        <div id="formNumber${i}"></div>
        <div class="mb-3">
          <label for="updateName${i}" class="form-label">Name:</label> <br>
@@ -364,51 +363,65 @@ function addForm(){
          <label for="updateTechnology${i}" class="form-label">Technology:</label> <br>
          <select id="updateTechnology${i}" name="updateTechnology" class="form-select" multiple
            aria-label="Multiple select example">
-           <option value="html">HTML</option>
-           <option value="css">CSS</option>
-           <option value="javascript">JavaScript</option>
-           <option value="python">Python</option>
-           <option value="java">Java</option>
+           <option value="html" id="html">HTML</option>
+           <option value="css" id="css">CSS</option>
+           <option value="javascript" id="javascript">JavaScript</option>
+           <option value="python" id="python">Python</option>
+           <option value="java" id="java">Java</option>
          </select> <br>
          <span id="errorTechnology"></span><br>
        </div>
        <button type="button" id="updateDetails" onclick = 'updateDetails()'>Update</button>
      </div>`;
-    
 
-    document.getElementById(`formNumber${i}`).innerHTML = `<p>Form Number : ${i}</p>`;
-    document.getElementById(`updateName${i}`).setAttribute('value', name);
-    document.getElementById(`updateEmail${i}`).setAttribute('value', email);
-    document.getElementById(`updatePhone${i}`).setAttribute('value', phone);
-    document.getElementById(`updateZipcode${i}`).setAttribute('value', zipcode);
-    document.getElementById(`updatedob${i}`).setAttribute('value', dob);
-    let genderSelected = document.getElementsByName(`updateGender${i}`);
-    for (let genderRadio of genderSelected) {
-        if (genderRadio.value == gender) {
-            $(`#${genderRadio.value}`).attr('checked', true)
-            break;
+        const name = retrieved[lst[i]].name;
+        const email = retrieved[lst[i]].email;
+        const phone = retrieved[lst[i]].phone;
+        const zipcode = retrieved[lst[i]].zipcode;
+        const dob = retrieved[lst[i]].dob;
+        const gender = retrieved[lst[i]].gender;
+        const hobbySelected = retrieved[lst[i]].hobbySelected;
+        const tech = retrieved[lst[i]].tech;
+
+        document.getElementById(`formNumber${i}`).innerHTML = `<p>Form Number : ${i}</p>`;
+        document.getElementById(`updateName${i}`).setAttribute('value', name);
+        document.getElementById(`updateEmail${i}`).setAttribute('value', email);
+        document.getElementById(`updatePhone${i}`).setAttribute('value', phone);
+        document.getElementById(`updateZipcode${i}`).setAttribute('value', zipcode);
+        document.getElementById(`updatedob${i}`).setAttribute('value', dob);
+        let genderSelected = document.getElementsByName(`updateGender${i}`);
+        let hobbies = document.getElementsByName(`updateHobby${i}`);
+        let technologies = document.getElementById(`updateTechnology${i}`).options;
+        for (let indexGen = 0; indexGen < genderSelected.length; indexGen++) {
+            if (genderSelected[indexGen].value == gender) {
+                document.getElementById(genderSelected[indexGen].value).checked = true;
+            }
         }
-    }
 
-    let selectedHobby = document.getElementsByName(`updateHobby${i}`);
-    for (let hobbyRadio of selectedHobby) {
-        if (hobbyRadio.value in hobbySelected) {
-            $(`#${hobbyRadio.value}`).attr('checked', true);
+        for (let indexHobby = 0; indexHobby < hobbies.length; indexHobby++) {
 
+            for (let y = 0; y < hobbySelected.length; y++) {
+                if (hobbies[indexHobby].value == hobbySelected[y]) {
+                    document.getElementById(hobbies[indexHobby].value).checked = true;
+                }
+            }
         }
+
+        
+        for (let indexTech = 0; indexTech < technologies.length; indexTech++) {
+            for (let x = 0; x < tech.length; x++) {
+                if (technologies[indexTech].value == tech[x]) {
+                    document.getElementById(`updateTechnology${i}`).options[indexTech].selected = true
+                }
+            }
+        }
+
+        // var formClassList = slideVar.getElementById('updateForm');
     }
-
-    document.getElementById(`updateTechnology${i}`).setAttribute('value', tech);
-
-    retrieved.splice(lst[i],1)
-    localStorage.setItem('formDetails', JSON.stringify(retrieved));
-    }
-
-    // var formClassList = slideVar.getElementById('updateForm');
 }
 
 const editButton = document.getElementById('editdetails');
-editButton.addEventListener('click', function(){
+editButton.addEventListener('click', function () {
     document.getElementById('viewList').classList.add('hideList');
     document.getElementById('slider').style.display = 'flex';
     addForm();
@@ -416,8 +429,7 @@ editButton.addEventListener('click', function(){
 }
 );
 
-
-function updateDetails(){
+function updateDetails() {
 
     let name = document.getElementsByName('updateName')[0].value;
     let email = document.getElementsByName('updateEmail')[0].value;
@@ -432,7 +444,7 @@ function updateDetails(){
             gender = genderSelected[index].value;
             break;
         }
-        
+
     }
 
     let reading = document.getElementById('reading');
@@ -443,8 +455,8 @@ function updateDetails(){
 
     if (reading.checked) {
         hobbySelected.push('reading');
-    } 
-    if(sports.checked){
+    }
+    if (sports.checked) {
         hobbySelected.push('sports');
     }
     if (music.checked) {
@@ -472,7 +484,7 @@ function updateDetails(){
     }
 }
 
-function validateFormafterUpdate(){
+function validateFormafterUpdate() {
     let name = document.getElementsByName('updateName').value;
     let email = document.getElementsByName('updateEmail').value;
     let phone = document.getElementsByName('updatePhone').value;
@@ -486,7 +498,7 @@ function validateFormafterUpdate(){
             gender = genderSelected[index];
             break;
         }
-        
+
     }
     let hobbyfield = document.getElementsByClassName('hobbyCheck');
     let hobby = [];
@@ -494,7 +506,7 @@ function validateFormafterUpdate(){
         if (hobbyfield[index].checked) {
             hobby.push(hobbyfield[index].value);
         }
-        
+
     }
 
     let techfield = document.getElementsByName('updateTechnology')[0];
@@ -581,4 +593,3 @@ function validateFormafterUpdate(){
     }
     return true;
 }
-

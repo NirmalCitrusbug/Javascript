@@ -3,101 +3,53 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!-- <link rel="stylesheet" href="styles.css"> -->
-  <title>Simple Slideshow</title>
+  <title>Gender Selection</title>
   <style>
     body {
-  font-family: Arial, sans-serif;
-}
-
-.slideshow-container {
-  max-width: 800px;
-  position: relative;
-  margin: auto;
-}
-
-.slide {
-  display: none;
-}
-
-img {
-  width: 100%;
-  height: auto;
-}
-
-.prev, .next {
-  position: absolute;
-  top: 50%;
-  width: auto;
-  padding: 16px;
-  margin-top: -22px;
-  font-size: 20px;
-  cursor: pointer;
-  color: white;
-  background-color: black;
-  border: none;
-  text-align: center;
-  text-decoration: none;
-}
-
-.prev {
-  left: 0;
-}
-
-.next {
-  right: 0;
-}
-
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin: 20px;
+    }
   </style>
 </head>
 <body>
 
-<div class="slideshow-container">
-  <div class="slide fade">
-    <img src="image1.jpg" alt="Slide 1">
-  </div>
-  <div class="slide fade">
-    <img src="image2.jpg" alt="Slide 2">
-  </div>
-  <!-- Add more slides as needed -->
-
-  <a class="prev" onclick="changeSlide(-1)">&#10094;</a>
-  <a class="next" onclick="changeSlide(1)">&#10095;</a>
-</div>
-
 <script>
-  let slideIndex = 0;
+  // Predefined gender options
+  var genderOptions = ["Male", "Female", "Other"];
 
-function showSlides() {
-  let slides = document.getElementsByClassName("slide");
-  
-  // Hide all slides
-  for (let i = 0; i < slides.length; i++) {
-    slides[i].style.display = "none";
+  // Function to display the prompt box with gender options
+  function selectGender() {
+    // Create a message for the prompt box
+    var message = "Select your gender:\n";
+
+    // Add each gender option to the message
+    for (var i = 0; i < genderOptions.length; i++) {
+      message += (i + 1) + ". " + genderOptions[i] + "\n";
+    }
+
+    // Prompt the user with the message
+    var userInput = prompt(message);
+
+    // Validate user input
+    if (userInput !== null) {
+      var selectedIndex = parseInt(userInput, 10);
+
+      // Check if the input is a valid index
+      if (!isNaN(selectedIndex) && selectedIndex >= 1 && selectedIndex <= genderOptions.length) {
+        var selectedGender = genderOptions[selectedIndex - 1];
+        alert("You selected: " + selectedGender);
+      } else {
+        alert("Invalid selection. Please try again.");
+      }
+    } else {
+      alert("User cancelled the selection.");
+    }
   }
 
-  // Display the current slide
-  slides[slideIndex].style.display = "block";
-}
-
-function changeSlide(n) {
-  slideIndex += n;
-
-  let slides = document.getElementsByClassName("slide");
-
-  // Wrap around when reaching the beginning or end of slides
-  if (slideIndex >= slides.length) {
-    slideIndex = 0;
-  } else if (slideIndex < 0) {
-    slideIndex = slides.length - 1;
-  }
-
-  showSlides();
-}
-
-// Initial slide display
-showSlides();
-
+  // Call the function when the page loads
+  selectGender();
 </script>
+
 </body>
 </html>
