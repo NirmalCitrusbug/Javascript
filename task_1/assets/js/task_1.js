@@ -339,12 +339,12 @@ function addForm() {
        </div>
        <div class="mb-3">
          <label for="updateGender${i}" class="form-label">Gender:</label> <br>
-         <input type="radio" id="male" name="updateGender${i}" value="male" class="form-check-input radioGender">
-         <label for="male">Male</label>
-         <input type="radio" id="female" name="updateGender${i}" value="female" class="form-check-input radioGender">
-         <label for="female">Female</label>
-         <input type="radio" id="other" name="updateGender${i}" value="other" class="form-check-input radioGender">
-         <label for="female">Other</label> <br>
+         <input type="radio" id="updatemale${i}" name="updateGender${i}" value="male" class="form-check-input radioGender">
+         <label for="updatemale${i}">Male</label>
+         <input type="radio" id="updatefemale${i}" name="updateGender${i}" value="female" class="form-check-input radioGender">
+         <label for="updatefemale${i}">Female</label>
+         <input type="radio" id="updateother${i}" name="updateGender${i}" value="other" class="form-check-input radioGender">
+         <label for="updateother${i}">Other</label> <br>
          <span id="errorGender"></span><br>
        </div>
        <div class="mb-3">
@@ -389,13 +389,24 @@ function addForm() {
         document.getElementById(`updatePhone${i}`).setAttribute('value', phone);
         document.getElementById(`updateZipcode${i}`).setAttribute('value', zipcode);
         document.getElementById(`updatedob${i}`).setAttribute('value', dob);
-        let genderSelected = document.getElementsByName(`updateGender${i}`);
+
         let hobbies = document.getElementsByName(`updateHobby${i}`);
         let technologies = document.getElementById(`updateTechnology${i}`).options;
-        for (let indexGen = 0; indexGen < genderSelected.length; indexGen++) {
-            if (genderSelected[indexGen].value == gender) {
-                document.getElementById(genderSelected[indexGen].value).checked = true;
-            }
+
+        let male = document.getElementById(`updatemale${i}`);
+        let female = document.getElementById(`updatefemale${i}`);
+        let other = document.getElementById(`updateother${i}`);
+
+        if (gender == 'male') {
+            male.checked = true;
+        }
+
+        else if (gender == 'female') {
+            female.checked = true;
+        }
+
+        else {
+            other.checked = true;
         }
 
         for (let indexHobby = 0; indexHobby < hobbies.length; indexHobby++) {
