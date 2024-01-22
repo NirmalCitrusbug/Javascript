@@ -1,4 +1,7 @@
+// code to validate name, email, phone, zipcode, date of birth, gender, hobby and technology while adding entry adding onchange event listener
 function validateForm() {
+
+    // declare variable and their values
     let name = document.getElementById("name");
     let email = document.getElementById("email");
     let phone = document.getElementById("phone");
@@ -8,6 +11,7 @@ function validateForm() {
     let hobby = document.querySelectorAll('input[name="hobby"]:checked');
     let technology = document.getElementById("technology");
 
+    // variable for displaying errors at their respective locations
     let errorName = document.getElementById("errorName");
     let errorEmail = document.getElementById("errorEmail");
     let errorPhone = document.getElementById("errorPhone");
@@ -17,6 +21,7 @@ function validateForm() {
     let errorHobby = document.getElementById("errorHobby");
     let errorTechnology = document.getElementById("errorTechnology");
 
+    // empty error fields
     errorName.innerHTML = "";
     errorEmail.innerHTML = "";
     errorPhone.innerHTML = "";
@@ -28,6 +33,7 @@ function validateForm() {
 
     let isValid = true;
 
+    // validate name
     if (name.value == "") {
         errorName.innerHTML = "Please enter your name!!!";
         errorName.style.color = "red";
@@ -40,42 +46,67 @@ function validateForm() {
         }
     });
 
+    // validate email
     if (email.value == "") {
-        errorEmail.innerHTML = "Please enter your email";
+        errorEmail.innerHTML = "Please enter valid email";
+        errorEmail.style.color = "red";
+        isValid = false;
+
+
+    }
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email.value)) {
+        errorEmail.innerHTML = "Please enter valid email";
         errorEmail.style.color = "red";
         isValid = false;
     }
 
+
     email.addEventListener("change", function () {
-        if (email.value != "") {
-            errorEmail.innerHTML = "";
-        }
+        errorEmail.innerHTML = "";
     });
 
+
+    // validate phone
     if (phone.value == "") {
-        errorPhone.innerHTML = "Please enter your phone number";
+        errorPhone.innerHTML = "Please enter your 10 digit phone number";
         errorPhone.style.color = "red";
         isValid = false;
     }
 
+    const phoneRegex = /^\d{10}$/;
+    if (!phoneRegex.test(phone.value)) {
+        errorPhone.innerHTML = "Please enter your 10 digit phone number";
+        errorPhone.style.color = "red";
+        isValid = false;
+    }
+
+
     phone.addEventListener("change", function () {
-        if (phone.value != "") {
-            errorPhone.innerHTML = "";
-        }
+
+        errorPhone.innerHTML = "";
+
     });
 
+    // validate zipcode
     if (zipcode.value == "") {
-        errorZip.innerHTML = "Please enter your zipcode";
+        errorZip.innerHTML = "Please enter your 6 digit zipcode";
+        errorZip.style.color = "red";
+        isValid = false;
+    }
+
+    const zipRegex = /^\d{6}$/;
+    if (!zipRegex.test(zipcode.value)) {
+        errorZip.innerHTML = "Please enter your 6 digit zipcode";
         errorZip.style.color = "red";
         isValid = false;
     }
 
     zipcode.addEventListener("change", function () {
-        if (zipcode.value != "") {
-            errorZip.innerHTML = "";
-        }
+        errorZip.innerHTML = "";
     });
 
+    // validate zipcode
     if (dob.value == "") {
         errorDob.innerHTML = "Please enter your date of birth";
         errorDob.style.color = "red";
@@ -83,11 +114,10 @@ function validateForm() {
     }
 
     dob.addEventListener("change", function () {
-        if (dob.value != "") {
-            errorDob.innerHTML = "";
-        }
+        errorDob.innerHTML = "";
     });
 
+    // ------------------------validate gender start------------------------------
     if (gender == null) {
         errorGender.innerHTML = "Please select your gender";
         errorGender.style.color = "red";
@@ -100,7 +130,9 @@ function validateForm() {
             errorGender.innerHTML = "";
         });
     }
+    // ------------------------validate gender end------------------------------
 
+    // validate hobby
     if (hobby.length === 0) {
         errorHobby.innerHTML = "Please select at least one hobby";
         errorHobby.style.color = "red";
@@ -114,6 +146,7 @@ function validateForm() {
         });
     }
 
+    // valdiate technology
     if (technology.value == "") {
         errorTechnology.innerHTML = "Please enter your technology";
         errorTechnology.style.color = "red";
@@ -121,9 +154,7 @@ function validateForm() {
     }
 
     technology.addEventListener("change", function () {
-        if (technology.value != "") {
-            errorTechnology.innerHTML = "";
-        }
+        errorTechnology.innerHTML = "";
     });
 
     if (!isValid) {
@@ -133,13 +164,17 @@ function validateForm() {
 
 }
 
+// function tp store form details in local storage
 function storeFormDetails() {
 
+    // fetch all the values of input fields name, email, phone, zipcode, and date of birth
     let name = document.getElementById("name").value;
     let email = document.getElementById("email").value;
     let phone = document.getElementById("phone").value;
     let zipcode = document.getElementById("zipcode").value;
     let dob = document.getElementById("dob").value;
+
+    // fetch value of the gender radio button
     let selectedGender = document.getElementsByName('gender');
     let gender = null;
 
@@ -150,6 +185,7 @@ function storeFormDetails() {
         }
     }
 
+    // fetch values of hobby checkboxes
     let hobby = document.querySelectorAll('input[name="hobby"]');
     let hobbySelected = [];
     hobby.forEach(function (checkbox) {
@@ -158,6 +194,7 @@ function storeFormDetails() {
         }
     });
 
+    // fetch values of select Technology
     let techField = document.getElementById('technology');
     let tech = [];
     for (let i = 0; i < techField.options.length; i++) {
@@ -175,14 +212,23 @@ function storeFormDetails() {
         let entries = JSON.parse(localStorage.getItem('formDetails')) || [];
         entries.push(formDetails);
         localStorage.setItem('formDetails', JSON.stringify(entries));
+        alert('form submitted successfully....');
+        // reset form after submission
         document.getElementById('regForm').reset();
     }
 }
 
+// function to display all the entries of local storage on list.html page.
 function displayFormDetails() {
+
+    // fetch details from local storage and store in variable
     const jsonStore = localStorage.getItem('formDetails');
+
+    // convert the string data to object
     const retrieved = JSON.parse(jsonStore);
-    var entry = document.getElementById('entry');
+
+    // fetch table document to add list of entries
+    let entry = document.getElementById('entry');
 
     for (let i = 0; i < retrieved.length; i++) {
         entry.innerHTML += `<tr> 
@@ -200,67 +246,79 @@ function displayFormDetails() {
     }
 }
 
-function displaysingleform(i) {
-    const jsonStore = localStorage.getItem('formDetails');
-    const retrieved = JSON.parse(jsonStore);
-    var entry = document.getElementById('entry');
+// function to display details of perticular entry on clicking view details
 
-    entry.innerHTML = `<li>
-                                <ul>Name: ${retrieved[i].name} </ul>
-                                <ul>Email: ${retrieved[i].email} </ul>
-                                <ul>Phone: ${retrieved[i].phone} </ul>
-                                <ul>Zipcode: ${retrieved[i].zipcode} </ul>
-                                <ul>Date of Birth: ${retrieved[i].dob} </ul>
-                                <ul>Gender: ${retrieved[i].gender} </ul>
-                                <ul>Hobby: ${retrieved[i].hobbySelected} </ul>
-                                <ul>Technology: ${retrieved[i].tech} </ul>
-                            </li>
-                            <br>
-                            <button type='button' onclick = 'location.reload()' class='btn btn-outline-primary'><a href='list.html'>Back</a></button>`;
+function displaysingleform(i) {
+    // fetch details from local storage
+    const jsonStore = localStorage.getItem('formDetails');
+    // convert data to objects
+    const retrieved = JSON.parse(jsonStore);
+    let entry = document.getElementById('entry');
+
+    // display detail
+    entry.innerHTML = `
+                        <p>Name: ${retrieved[i].name} </p>
+                        <p>Email: ${retrieved[i].email} </p>
+                        <p>Phone: ${retrieved[i].phone} </p>
+                        <p>Zipcode: ${retrieved[i].zipcode} </p>
+                        <p>Date of Birth: ${retrieved[i].dob} </p>
+                        <p>Gender: ${retrieved[i].gender} </ul>
+                        <p>Hobby: ${retrieved[i].hobbySelected} </p>
+                         <p>Technology: ${retrieved[i].tech} </p>
+                        <br>
+                        <button type='button' onclick = 'location.reload()' class='btn btn-outline-primary'><a href='list.html'>Back</a></button>
+                    `;
+
+    // hide add entry button, delete entry button and edit details button
     document.getElementById('addEntry').style.display = 'none';
     document.getElementById('deleteEntry').style.display = 'none';
     document.getElementById('editdetails').style.display = 'none';
 
-
-
 }
 
+// call displayFormDetails() function
 displayFormDetails();
 
+// delete entries function
 var deleteButton = document.getElementById('deleteEntry');
 var entry = document.getElementById('entry');
 
 function deleteFormDetails() {
 
+    // fetch details from local storage
     const jsonStore = localStorage.getItem('formDetails');
-    const retrieved = JSON.parse(jsonStore);
+    // convert data to object
+    let retrieved = JSON.parse(jsonStore);
 
-    var ent = document.getElementsByClassName('entryCheck');
-    var lst = [];
-    for (let i = ent.length - 1; i >= 0; i--) {
-        if (ent[i].checked) {
+    // fetch checked checkbox and its id
+    let entryCheckbox = document.getElementsByClassName('entryCheck');
+
+    let lst = [];
+    for (let i = 0; i < entryCheckbox.length; i++) {
+        if (entryCheckbox[i].checked) {
             lst.push(i);
         }
     }
 
+    // delete entry from object list and delete that row of table
     for (let i = 0; i < lst.length; i++) {
         retrieved.splice(lst[i], 1);
         entry.deleteRow(lst[i]);
     }
 
+    // push the new list to localstorage
     localStorage.setItem('formDetails', JSON.stringify(retrieved));
-
 
 }
 
+// call the delete button using onclick event listner
 deleteButton.addEventListener('click', function () {
     deleteFormDetails();
+    window.location.href = "/task_1/list.html";
 })
 
 
-
 // form sliders
-
 var slideIndex = 0;
 
 function showSlides() {
@@ -290,52 +348,62 @@ function changeSlide(n) {
     showSlides();
 }
 
-let updateFormVar = document.getElementById('updateForm');
 
+// function to add prefilled forms in slider to update entries
 function addForm() {
 
+    // get slider division
     let slideVar = document.getElementById('slider');
+
+    // fetch entries from local storage and convert to storage
     const jsonStore = localStorage.getItem('formDetails');
     let retrieved = JSON.parse(jsonStore);
 
-    var ent = document.getElementsByClassName('entryCheck');
-    var lst = [];
-    for (let entryIndex = ent.length - 1; entryIndex >= 0; entryIndex--) {
-        if (ent[entryIndex].checked) {
+    // store checked entries number in lst variable
+    let entryChecked = document.getElementsByClassName('entryCheck');
+    let lst = [];
+    for (let entryIndex = 0; entryIndex < entryChecked.length; entryIndex++) {
+        if (entryChecked[entryIndex].checked) {
             lst.push(entryIndex);
         }
     }
 
-    for (let i = 0; i < lst.length; i++) {
+    // if lst is empty slider should not come and if edit entry button is clicked it should show error
+    if (lst.length == 0) {
+        alert('Please select entry!!!');
+        return false;
+    }
 
+    // add form according to number of checkbox checked
+    for (let i = 0; i < lst.length; i++) {
         slideVar.innerHTML += `<div id="updateForm" class='slide'>
        <div id="formNumber${i}"></div>
        <div class="mb-3">
          <label for="updateName${i}" class="form-label">Name:</label> <br>
          <input type="text" id="updateName${i}" name="updateName" class="form-control"> <br>
-         <span id="errorName"></span><br>
+         <span id="errorName${lst[i]}"></span><br>
    
        </div>
        <div class="mb-3">
          <label for="updateEmail${i}" class="form-label">Email:</label> <br>
          <input type="email" id="updateEmail${i}" name="updateEmail" class="form-control"> <br>
-         <span id="errorEmail"></span><br>
+         <span id="errorEmail${lst[i]}"></span><br>
        </div>
        <div class="mb-3">
          <label for="updatePhone${i}" class="form-label">Phone:</label> <br>
          <input type="tel" id="updatePhone${i}" name="updatePhone" class="form-control"> <br>
-         <span id="errorPhone"></span><br>
+         <span id="errorPhone${lst[i]}"></span><br>
        </div>
        <div class="mb-3">
          <label for="updateZipcode${i}" class="form-label">Zipcode:</label> <br>
          <input type="text" id="updateZipcode${i}" name="updateZipcode" class="form-control"> <br>
-         <span id="errorZip"></span><br>
+         <span id="errorZip${lst[i]}"></span><br>
        </div>
        <div class="mb-3">
          <label for="updatedob${i}" class="form-label">Date of Birth:</label> <br>
          <input type="date" id="updatedob${i}" name="updatedob" class="form-control">
          <br>
-         <span id="errorDob"></span><br>
+         <span id="errorDob${lst[i]}"></span><br>
        </div>
        <div class="mb-3">
          <label for="updateGender${i}" class="form-label">Gender:</label> <br>
@@ -345,7 +413,7 @@ function addForm() {
          <label for="updatefemale${i}">Female</label>
          <input type="radio" id="updateother${i}" name="updateGender${i}" value="other" class="form-check-input radioGender">
          <label for="updateother${i}">Other</label> <br>
-         <span id="errorGender"></span><br>
+         <span id="errorGender${lst[i]}"></span><br>
        </div>
        <div class="mb-3">
          <label for="updateHobby${i}" class="form-label">Hobby:</label> <br>
@@ -357,7 +425,7 @@ function addForm() {
          <label for="music">Music</label>
          <input type="checkbox" id="traveling" name="updateHobby${i}" value="traveling" class="hobbyCheck  form-check-input">
          <label for="traveling">Traveling</label> <br>
-         <span id="errorHobby"></span><br>
+         <span id="errorHobby${lst[i]}"></span><br>
        </div>
        <div class="mb-3">
          <label for="updateTechnology${i}" class="form-label">Technology:</label> <br>
@@ -369,11 +437,12 @@ function addForm() {
            <option value="python" id="python">Python</option>
            <option value="java" id="java">Java</option>
          </select> <br>
-         <span id="errorTechnology"></span><br>
+         <span id="errorTechnology${lst[i]}"></span><br>
        </div>
-       <button type="button" id="updateDetails" onclick = 'updateDetails()'>Update</button>
+       <button type="button" id="updateDetails" onclick = 'updateDetails(${lst[i]}, ${i})'>Update</button>
      </div>`;
 
+        // get all the details to preselect the fields
         const name = retrieved[lst[i]].name;
         const email = retrieved[lst[i]].email;
         const phone = retrieved[lst[i]].phone;
@@ -390,58 +459,65 @@ function addForm() {
         document.getElementById(`updateZipcode${i}`).setAttribute('value', zipcode);
         document.getElementById(`updatedob${i}`).setAttribute('value', dob);
 
+        // fetch hobbies
         let hobbies = document.getElementsByName(`updateHobby${i}`);
+        // fetch technology
         let technologies = document.getElementById(`updateTechnology${i}`).options;
 
+        // fetch genders
         let male = document.getElementById(`updatemale${i}`);
         let female = document.getElementById(`updatefemale${i}`);
         let other = document.getElementById(`updateother${i}`);
 
+        // fetch selected genders
         if (gender == 'male') {
-            male.checked = true;
+            male.setAttribute('checked', true);
         }
 
         else if (gender == 'female') {
-            female.checked = true;
+            female.setAttribute('checked', true);
         }
 
         else {
-            other.checked = true;
+            other.setAttribute('checked', true);
         }
-
+        // fetch selected hobbies
         for (let indexHobby = 0; indexHobby < hobbies.length; indexHobby++) {
-
-            for (let y = 0; y < hobbySelected.length; y++) {
-                if (hobbies[indexHobby].value == hobbySelected[y]) {
-                    document.getElementById(hobbies[indexHobby].value).checked = true;
-                }
+            if (hobbySelected.includes(hobbies[indexHobby].value)) {
+                hobbies[indexHobby].setAttribute('checked', true);
             }
         }
 
-        
+        // fetch selected technologies
         for (let indexTech = 0; indexTech < technologies.length; indexTech++) {
             for (let x = 0; x < tech.length; x++) {
                 if (technologies[indexTech].value == tech[x]) {
-                    document.getElementById(`updateTechnology${i}`).options[indexTech].selected = true
+                    document.getElementById(`updateTechnology${i}`).options[indexTech].setAttribute('selected', true)
                 }
             }
         }
-
-        // var formClassList = slideVar.getElementById('updateForm');
     }
+    return true;
 }
 
+// add onclick event listener to by clicking edit button and slider should pop
 const editButton = document.getElementById('editdetails');
+
 editButton.addEventListener('click', function () {
     document.getElementById('viewList').classList.add('hideList');
     document.getElementById('slider').style.display = 'flex';
-    addForm();
-    showSlides();
+    if (!addForm()) {
+        window.location.href = "/task_1/list.html";
+    }
+    else {
+        showSlides();
+    }
 }
 );
 
-function updateDetails() {
-
+// function to update details details in form present in sliders
+function updateDetails(indexUpdate, indexInput) {
+    // fetch details of each fields 
     let name = document.getElementsByName('updateName')[0].value;
     let email = document.getElementsByName('updateEmail')[0].value;
     let phone = document.getElementsByName('updatePhone')[0].value;
@@ -478,129 +554,177 @@ function updateDetails() {
     }
 
     let techfield = document.getElementsByName('updateTechnology')[0];
+    
     let tech = [];
     for (let index = 0; index < 5; index++) {
         if (techfield.options[index].selected) {
             tech.push(techfield.options[index].value);
         }
     }
-    // Call the validateForm() function to perform validation
-    if (validateFormafterUpdate()) {
+    // Call the validateFormAfterUpdate() function to perform validation
+    if (validateFormAfterUpdate(indexUpdate, indexInput)) {
         // Get the form details
-        let formDetails = { name, email, phone, zipcode, dob, gender, hobbySelected, tech };
+        let updatedValues = { name, email, phone, zipcode, dob, gender, hobbySelected, tech };
         // Store the form details in local storage
         let entries = JSON.parse(localStorage.getItem('formDetails')) || [];
-        entries.push(formDetails);
+        entries[indexUpdate] = updatedValues;
         localStorage.setItem('formDetails', JSON.stringify(entries));
+        // display message on update
+        alert('Updated successfully......');
     }
 }
 
-function validateFormafterUpdate() {
-    let name = document.getElementsByName('updateName').value;
-    let email = document.getElementsByName('updateEmail').value;
-    let phone = document.getElementsByName('updatePhone').value;
-    let zipcode = document.getElementsByName('updateZipcode').value;
-    let dob = document.getElementsByName('updatedob').value;
-    let genderSelected = document.getElementsByClassName('radioGender');
-    let gender;
+// function to validate forms in slider
+function validateFormAfterUpdate(indaxValid, indexInput) {
+    let name = document.getElementById(`updateName${indexInput}`)
+    let email = document.getElementById(`updateEmail${indexInput}`)
+    let phone = document.getElementById(`updatePhone${indexInput}`)
+    let zipcode = document.getElementById(`updateZipcode${indexInput}`)
+    let dob = document.getElementById(`updatedob${indexInput}`)
+    let gender = document.querySelector(`input[name= 'updateGender${indexInput}']:checked`);
+    let hobby = document.querySelectorAll(`input[name='updateHobby${indexInput}']:checked`);
+    let technology = document.getElementById(`updateTechnology${indexInput}`);
 
-    for (let index = 0; index < 3; index++) {
-        if (genderSelected[index].checked) {
-            gender = genderSelected[index];
-            break;
-        }
-
-    }
-    let hobbyfield = document.getElementsByClassName('hobbyCheck');
-    let hobby = [];
-    for (let index = 0; index < 4; index++) {
-        if (hobbyfield[index].checked) {
-            hobby.push(hobbyfield[index].value);
-        }
-
-    }
-
-    let techfield = document.getElementsByName('updateTechnology')[0];
-    let tech = [];
-    for (let index = 0; index < 5; index++) {
-        if (techfield.options[index].selected) {
-            tech.push(techfield.options[index].value);
-        }
-    }
-
-    let errorName = document.getElementById("errorName");
-    let errorEmail = document.getElementById("errorEmail");
-    let errorPhone = document.getElementById("errorPhone");
-    let errorZip = document.getElementById("errorZip");
-    let errorDob = document.getElementById("errorDob");
-    let errorGender = document.getElementById("errorGender");
-    let errorHobby = document.getElementById("errorHobby");
-    let errorTechnology = document.getElementById("errorTechnology");
-
-    errorName.innerHTML = "";
-    errorEmail.innerHTML = "";
-    errorPhone.innerHTML = "";
-    errorZip.innerHTML = "";
-    errorDob.innerHTML = "";
-    errorGender.innerHTML = "";
-    errorHobby.innerHTML = "";
-    errorTechnology.innerHTML = "";
+    let errorName = document.getElementById(`errorName${indaxValid}`);
+    let errorEmail = document.getElementById(`errorEmail${indaxValid}`);
+    let errorPhone = document.getElementById(`errorPhone${indaxValid}`);
+    let errorZip = document.getElementById(`errorZip${indaxValid}`);
+    let errorDob = document.getElementById(`errorDob${indaxValid}`);
+    let errorGender = document.getElementById(`errorGender${indaxValid}`);
+    let errorHobby = document.getElementById(`errorHobby${indaxValid}`);
+    let errorTechnology = document.getElementById(`errorTechnology${indaxValid}`);
 
     let isValid = true;
 
-    if (name == "") {
+    // validate name
+    if (name.value == "") {
         errorName.innerHTML = "Please enter your name!!!";
         errorName.style.color = "red";
         isValid = false;
     }
 
+    name.addEventListener("change", function () {
+        if (name.value != "") {
+            errorName.innerHTML = "";
+        }
+    });
 
-    if (email == "") {
-        errorEmail.innerHTML = "Please enter your email";
+    // validate email
+    if (email.value == "") {
+        errorEmail.innerHTML = "Please enter valid email";
+        errorEmail.style.color = "red";
+        isValid = false;
+
+
+    }
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email.value)) {
+        errorEmail.innerHTML = "Please enter valid email";
         errorEmail.style.color = "red";
         isValid = false;
     }
 
 
-    if (phone == "") {
-        errorPhone.innerHTML = "Please enter your phone number";
+    email.addEventListener("change", function () {
+
+        errorEmail.innerHTML = "";
+
+    });
+
+    // validate phone number
+    if (phone.value == "") {
+        errorPhone.innerHTML = "Please enter your 10 digit phone number";
         errorPhone.style.color = "red";
         isValid = false;
     }
 
-    if (zipcode == "") {
-        errorZip.innerHTML = "Please enter your zipcode";
+    const phoneRegex = /^\d{10}$/;
+    if (!phoneRegex.test(phone.value)) {
+        errorPhone.innerHTML = "Please enter your 10 digit phone number";
+        errorPhone.style.color = "red";
+        isValid = false;
+    }
+
+
+    phone.addEventListener("change", function () {
+
+        errorPhone.innerHTML = "";
+
+    });
+
+    // validate zipcode
+    if (zipcode.value == "") {
+        errorZip.innerHTML = "Please enter your 6 digit zipcode";
         errorZip.style.color = "red";
         isValid = false;
     }
 
-    if (dob == "") {
+    const zipRegex = /^\d{6}$/;
+    if (!zipRegex.test(zipcode.value)) {
+        errorZip.innerHTML = "Please enter your 6 digit zipcode";
+        errorZip.style.color = "red";
+        isValid = false;
+    }
+
+    zipcode.addEventListener("change", function () {
+        errorZip.innerHTML = "";
+    });
+
+    // validate date of birth
+    if (dob.value == "") {
         errorDob.innerHTML = "Please enter your date of birth";
         errorDob.style.color = "red";
         isValid = false;
     }
 
+    dob.addEventListener("change", function () {
+        errorDob.innerHTML = "";
+    });
 
-    if (gender == "") {
+    // validate gender
+    if (gender == null) {
         errorGender.innerHTML = "Please select your gender";
         errorGender.style.color = "red";
         isValid = false;
     }
 
+    let genderInputs = document.querySelectorAll('input[name="gender"]');
+    for (let i = 0; i < genderInputs.length; i++) {
+        genderInputs[i].addEventListener("change", function () {
+            errorGender.innerHTML = "";
+        });
+    }
+
+    // validate hobby
     if (hobby.length === 0) {
         errorHobby.innerHTML = "Please select at least one hobby";
         errorHobby.style.color = "red";
         isValid = false;
     }
 
-    if (tech.length == 0) {
+    let hobbyInputs = document.querySelectorAll('input[name="hobby"]');
+    for (let i = 0; i < hobbyInputs.length; i++) {
+        hobbyInputs[i].addEventListener("change", function () {
+            errorHobby.innerHTML = "";
+        });
+    }
+
+    // validate technology
+    if (technology.value == "") {
         errorTechnology.innerHTML = "Please enter your technology";
         errorTechnology.style.color = "red";
         isValid = false;
     }
 
+    technology.addEventListener("change", function () {
+        errorTechnology.innerHTML = "";
+    });
+
+    // return false when any of the above condition does not satisfy
     if (!isValid) {
         return false;
     }
+
+    // else return true
     return true;
 }

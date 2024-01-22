@@ -14,37 +14,45 @@
 </head>
 
 <body>
+    <!-- Container containing form -->
     <div class="container">
         <h1>Registration</h1>
+        <!-- form to add entry with fields name, email, phone, zipcode, date of birth, gender, hobbies and technologies -->
         <form onsubmit="return validateForm()" id="regForm">
 
+            <!-- division to name input -->
             <div class="mb-3">
                 <label for="name" class="form-label">Name:</label> <br>
                 <input type="text" id="name" name="name" class="form-control"> <br>
                 <span id="errorName"></span><br>
 
             </div>
+            <!-- division for email input -->
             <div class="mb-3">
                 <label for="email" class="form-label">Email:</label> <br>
                 <input type="email" id="email" name="email" class="form-control"> <br>
                 <span id="errorEmail"></span><br>
             </div>
+            <!-- division for phone number input -->
             <div class="mb-3">
                 <label for="phone" class="form-label">Phone:</label> <br>
                 <input type="tel" id="phone" name="phone" class="form-control"> <br>
                 <span id="errorPhone"></span><br>
             </div>
+            <!-- division for zipcode input -->
             <div class="mb-3">
                 <label for="zipcode" class="form-label">Zipcode:</label> <br>
                 <input type="text" id="zipcode" name="zipcode" class="form-control"> <br>
                 <span id="errorZip"></span><br>
             </div>
+            <!-- division for dob input -->
             <div class="mb-3">
                 <label for="dob" class="form-label">Date of Birth:</label> <br>
                 <input type="date" id="dob" name="dob" class="form-control">
                 <br>
                 <span id="errorDob"></span><br>
             </div>
+            <!-- division for gender radio buttons -->
             <div class="mb-3">
                 <label for="gender" class="form-label">Gender:</label> <br>
                 <input type="radio" id="male" name="gender" value="male" class="form-check-input">
@@ -55,6 +63,7 @@
                 <label for="female">Other</label> <br>
                 <span id="errorGender"></span><br>
             </div>
+            <!-- division for hobby checkboxes -->
             <div class="mb-3">
                 <label for="hobby" class="form-label">Hobby:</label> <br>
                 <input type="checkbox" id="reading" name="hobby" value="reading" class="form-check-input">
@@ -67,6 +76,7 @@
                 <label for="traveling">Traveling</label> <br>
                 <span id="errorHobby"></span><br>
             </div>
+            <!-- division to select technologies -->
             <div class="mb-3">
                 <label for="technology" class="form-label">Technology:</label> <br>
                 <select id="technology" name="technology" class="form-select" multiple
@@ -80,8 +90,10 @@
                 <span id="errorTechnology"></span><br>
             </div>
             <div>
-                <input type="button" value="Submit" class="btn btn-primary btn-lg" id="submitForm"
-                    onclick="storeFormDetails()">
+                <!-- button to submit form and store details in local storage -->
+                <input type="button" value="Submit" class="btn btn-primary btn-lg" id="submitForm" onclick="storeFormDetails()">
+                <!-- button to redirect to list page -->
+                <button type="button" class="btn btn-primary btn-lg"><a href="list.html" style="text-decoration: none; color: white;">View list</a></button>
         </form>
 
     </div>
